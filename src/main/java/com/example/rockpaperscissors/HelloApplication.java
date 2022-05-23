@@ -1,9 +1,9 @@
 package com.example.rockpaperscissors;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -35,7 +35,7 @@ public class HelloApplication extends Application {
 
         //winLog
         winLogTitle = new Label("Win Log");
-        winLogTitle.setMaxWidth(150);
+        winLogTitle.setMinWidth(150);
         winLogContent = new Label("test");
         VBox vBox = new VBox(winLogTitle, winLogContent);
 
@@ -45,7 +45,23 @@ public class HelloApplication extends Application {
         );
 
         //pick move
-        //adding the images
+
+        //stage
+        //player one choice
+        FileInputStream load = new FileInputStream("src/main/java/com/example/images/player_load.png");
+        Image loadImage = new Image(load);
+        ImageView loadImageView = new ImageView(loadImage);
+        loadImageView.setFitHeight(150);
+        loadImageView.setFitWidth(150);
+
+        //computer choice
+        FileInputStream load2 = new FileInputStream("src/main/java/com/example/images/player_load.png");
+        Image loadImage2 = new Image(load2);
+        ImageView loadImageView2 = new ImageView(loadImage2);
+        loadImageView2.setFitHeight(150);
+        loadImageView2.setFitWidth(150);
+
+        //player1 choices
         //rock
         FileInputStream rock = new FileInputStream("src/main/java/com/example/images/rock_press.png");
         Image rockImage = new Image(rock);
@@ -54,6 +70,11 @@ public class HelloApplication extends Application {
         rockImageView.setFitWidth(150);
         //rock button
         Button rockButton = new Button("Rock");
+        rockButton.setStyle("-fx-font-size: 15; -fx-background-color: #ffffbf; ");
+        //button action
+        rockButton.setOnAction((ActionEvent event) -> {
+            System.out.println("class rock button");
+        });
 
         //paper
         FileInputStream paper = new FileInputStream("src/main/java/com/example/images/paper_press.png");
@@ -63,6 +84,11 @@ public class HelloApplication extends Application {
         paperImageView.setFitWidth(150);
         //paper button
         Button paperButton = new Button("Paper");
+        paperButton.setStyle("-fx-background-color: #ffffbf; ");
+        //button action
+        paperButton.setOnAction((ActionEvent event) -> {
+            System.out.println("class paper button");
+        });
 
         //scissors
         FileInputStream scissors = new FileInputStream("src/main/java/com/example/images/scissors_press.png");
@@ -72,6 +98,12 @@ public class HelloApplication extends Application {
         scissorsImageView.setFitWidth(150);
         //scissors button
         Button scissorsButton = new Button("Scissors");
+        scissorsButton.setStyle("-fx-background-color: #ffffbf; ");
+        //button action
+        scissorsButton.setOnAction((ActionEvent event) -> {
+            System.out.println("class scissors button");
+        });
+
 
         //gridPane
         GridPane gridPane = new GridPane();
@@ -84,9 +116,14 @@ public class HelloApplication extends Application {
         gridPane.setHgap(100);
         gridPane.setVgap(20);
         //placement
-        gridPane.addColumn(0, rockImageView, rockButton);
-        gridPane.addColumn(1, paperImageView, paperButton);
-        gridPane.addColumn(2, scissorsImageView, scissorsButton);
+        gridPane.add(loadImageView, 0, 0);
+        gridPane.add(loadImageView2, 1, 0);
+        gridPane.add(rockImageView, 0, 1);
+        gridPane.add(paperImageView, 1, 1);
+        gridPane.add(scissorsImageView, 2, 1);
+        gridPane.add(rockButton, 0, 2);
+        gridPane.add(paperButton, 1, 2);
+        gridPane.add(scissorsButton, 2, 2);
 
         //getting gameBoard content
         gameBoard.getChildren().addAll(
