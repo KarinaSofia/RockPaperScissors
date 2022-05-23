@@ -27,6 +27,10 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     private Label winLogTitle;
     private Label winLogContent;
+    String baseImage = "src/main/java/com/example/images/player_load.png";
+    String computerBaseImage = "src/main/java/com/example/images/player_load.png";
+
+    ImageView loadImageView;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -42,7 +46,7 @@ public class HelloApplication extends Application {
         //winLog
         winLogTitle = new Label("Win Log");
         winLogTitle.setFont(Font.font("Lucida Sans Unicode", FontWeight.BOLD, FontPosture.REGULAR, 15));
-        winLogTitle.setMinWidth(150);
+        winLogTitle.setMinWidth(200);
         winLogContent = new Label("test");
         VBox vBox = new VBox(winLogTitle, winLogContent);
 
@@ -54,18 +58,23 @@ public class HelloApplication extends Application {
         //pick move
         //header
         Label gameHeader = new Label("Rock Paper Scissors");
-        gameHeader.setFont(Font.font("Lucida Sans Unicode", FontWeight.BOLD, FontPosture.REGULAR, 20));
+        gameHeader.setFont(Font.font("Lucida Sans Unicode", FontWeight.BOLD, FontPosture.REGULAR, 30));
 
         //stage
+
+        //shown image initialization
+
+
         //player one choice
-        FileInputStream load = new FileInputStream("src/main/java/com/example/images/player_load.png");
+        FileInputStream load = new FileInputStream(baseImage);
         Image loadImage = new Image(load);
-        ImageView loadImageView = new ImageView(loadImage);
+        loadImageView = new ImageView();
+        loadImageView.setImage(loadImage);
         loadImageView.setFitHeight(150);
         loadImageView.setFitWidth(150);
 
         //computer choice
-        FileInputStream load2 = new FileInputStream("src/main/java/com/example/images/player_load.png");
+        FileInputStream load2 = new FileInputStream(computerBaseImage);
         Image loadImage2 = new Image(load2);
         ImageView loadImageView2 = new ImageView(loadImage2);
         loadImageView2.setFitHeight(150);
@@ -83,7 +92,8 @@ public class HelloApplication extends Application {
         rockButton.setStyle("-fx-font-size: 15; -fx-background-color: #ffffbf; ");
         //button action
         rockButton.setOnAction((ActionEvent event) -> {
-            System.out.println("class rock button");
+            System.out.println("its working");
+            loadImageView.setImage(rockImage);
         });
 
         //paper
@@ -116,35 +126,57 @@ public class HelloApplication extends Application {
 
 
         //gridPane
-        GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        //alignment
+        GridPane playerInteractionGridPane = new GridPane();
+        playerInteractionGridPane.setAlignment(Pos.CENTER);
+
+        GridPane gameStageGridPane = new GridPane();
+        gameStageGridPane.setAlignment(Pos.CENTER);
+
+        GridPane gameHeaderGridPane = new GridPane();
+        gameHeaderGridPane.setAlignment(Pos.CENTER);
+
+        //button alignment
         GridPane.setHalignment(rockButton, HPos.CENTER);
         GridPane.setHalignment(paperButton, HPos.CENTER);
         GridPane.setHalignment(scissorsButton, HPos.CENTER);
+
         //sizing
-        gridPane.setHgap(100);
-        gridPane.setVgap(20);
+        playerInteractionGridPane.setHgap(100);
+        playerInteractionGridPane.setVgap(30);
+
+        gameStageGridPane.setHgap(120);
+        gameStageGridPane.setVgap(70);
+
         //placement
-        gridPane.add(gameHeader, 0, 0);
-        gridPane.add(loadImageView, 0, 1);
-        gridPane.add(loadImageView2, 1, 1);
-        gridPane.add(rockImageView, 0, 2);
-        gridPane.add(paperImageView, 1, 2);
-        gridPane.add(scissorsImageView, 2, 2);
-        gridPane.add(rockButton, 0, 3);
-        gridPane.add(paperButton, 1, 3);
-        gridPane.add(scissorsButton, 2, 3);
+
+        gameHeaderGridPane.add(gameHeader, 0, 0);
+
+        gameStageGridPane.add(loadImageView, 0, 1);
+        gameStageGridPane.add(loadImageView2, 1, 1);
+
+        playerInteractionGridPane.add(rockImageView, 0, 2);
+        playerInteractionGridPane.add(paperImageView, 1, 2);
+        playerInteractionGridPane.add(scissorsImageView, 2, 2);
+
+        playerInteractionGridPane.add(rockButton, 0, 3);
+        playerInteractionGridPane.add(paperButton, 1, 3);
+        playerInteractionGridPane.add(scissorsButton, 2, 3);
+
+        //hBox
+        VBox gameStage = new VBox(gameHeaderGridPane, gameStageGridPane, playerInteractionGridPane);
 
         //getting gameBoard content
         gameBoard.getChildren().addAll(
-                gridPane
+                gameStage
         );
 
         //setting the stage
         stage.setTitle("Rock Paper Scissors!");
-        Scene scene = new Scene(root, 900, 500);
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
+        stage.setMinHeight(600);
+        stage.setMinWidth(1000);
+        stage.setMaxHeight(600);
+        stage.setMaxWidth(1000);
         stage.show();
     }
 
