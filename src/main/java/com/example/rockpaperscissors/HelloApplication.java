@@ -24,7 +24,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     private Label winLogTitle;
     private Label winLogContent;
-    char userInput;
+    String userInput;
 
     ImageView loadImageView;
     ImageView loadImageView2;
@@ -79,12 +79,18 @@ public class HelloApplication extends Application {
         loadImageView2.setFitWidth(150);
 
         //Start button
-
         Button startButton = new Button("Start");
         startButton.setStyle("-fx-font-size: 15; -fx-background-color: #ffffbf; ");
         //button action
         startButton.setOnAction((ActionEvent event) -> {
-            System.out.println("test");
+            try{
+                if(userInput != null){
+                    System.out.println("was not null");
+                }
+            }
+            catch(NullPointerException e){
+                System.out.println("was null");
+            }
         });
 
         //player1 choices
