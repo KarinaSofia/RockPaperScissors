@@ -6,6 +6,7 @@ import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -83,14 +84,17 @@ public class HelloApplication extends Application {
         startButton.setStyle("-fx-font-size: 15; -fx-background-color: #ffffbf; ");
         //button action
         startButton.setOnAction((ActionEvent event) -> {
-            try{
                 if(userInput != null){
-                    System.out.println("was not null");
+                    Evaluation evaluate = new Evaluation(userInput);
+                    System.out.println(evaluate.playGame());
                 }
-            }
-            catch(NullPointerException e){
-                System.out.println("was null");
-            }
+                else{
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error");
+                    alert.setHeaderText("Watch out!");
+                    alert.setContentText("You must select a move first");
+                    alert.showAndWait();
+                }
         });
 
         //player1 choices
