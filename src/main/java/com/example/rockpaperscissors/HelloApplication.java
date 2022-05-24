@@ -4,17 +4,14 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -27,10 +24,10 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     private Label winLogTitle;
     private Label winLogContent;
-    String baseImage = "src/main/java/com/example/images/player_load.png";
-    String computerBaseImage = "src/main/java/com/example/images/player_load.png";
+    char userInput;
 
     ImageView loadImageView;
+    ImageView loadImageView2;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -56,29 +53,39 @@ public class HelloApplication extends Application {
         );
 
         //pick move
-        //header
+        //headers
         Label gameHeader = new Label("Rock Paper Scissors");
         gameHeader.setFont(Font.font("Lucida Sans Unicode", FontWeight.BOLD, FontPosture.REGULAR, 30));
 
-        //stage
+        Label player1Header = new Label("Player 1 (you)");
+        player1Header.setFont(Font.font("Lucida Sans Unicode", FontWeight.BOLD, FontPosture.REGULAR, 15));
+        Label player2Header = new Label("Challenger");
+        player2Header.setFont(Font.font("Lucida Sans Unicode", FontWeight.BOLD, FontPosture.REGULAR, 15));
 
-        //shown image initialization
-
-
-        //player one choice
-        FileInputStream load = new FileInputStream(baseImage);
+        //player one choice visual
+        FileInputStream load = new FileInputStream("src/main/java/com/example/images/player_load.png");
         Image loadImage = new Image(load);
         loadImageView = new ImageView();
         loadImageView.setImage(loadImage);
         loadImageView.setFitHeight(150);
         loadImageView.setFitWidth(150);
 
-        //computer choice
-        FileInputStream load2 = new FileInputStream(computerBaseImage);
+        //computer choice visual
+        FileInputStream load2 = new FileInputStream("src/main/java/com/example/images/player_load.png");
         Image loadImage2 = new Image(load2);
-        ImageView loadImageView2 = new ImageView(loadImage2);
+        loadImageView2 = new ImageView(loadImage2);
+        loadImageView2.setImage(loadImage2);
         loadImageView2.setFitHeight(150);
         loadImageView2.setFitWidth(150);
+
+        //Start button
+
+        Button startButton = new Button("Start");
+        startButton.setStyle("-fx-font-size: 15; -fx-background-color: #ffffbf; ");
+        //button action
+        startButton.setOnAction((ActionEvent event) -> {
+            System.out.println("test");
+        });
 
         //player1 choices
         //rock
@@ -92,8 +99,9 @@ public class HelloApplication extends Application {
         rockButton.setStyle("-fx-font-size: 15; -fx-background-color: #ffffbf; ");
         //button action
         rockButton.setOnAction((ActionEvent event) -> {
-            System.out.println("its working");
             loadImageView.setImage(rockImage);
+            RockButton pickedRock = new RockButton();
+            userInput = pickedRock.returnValue();
         });
 
         //paper
@@ -107,7 +115,9 @@ public class HelloApplication extends Application {
         paperButton.setStyle("-fx-font-size: 15; -fx-background-color: #ffffbf; ");
         //button action
         paperButton.setOnAction((ActionEvent event) -> {
-            System.out.println("class paper button");
+            loadImageView.setImage(paperImage);
+            PaperButton pickedPaper = new PaperButton();
+            userInput = pickedPaper.returnValue();
         });
 
         //scissors
@@ -121,38 +131,49 @@ public class HelloApplication extends Application {
         scissorsButton.setStyle("-fx-font-size: 15; -fx-background-color: #ffffbf; ");
         //button action
         scissorsButton.setOnAction((ActionEvent event) -> {
-            System.out.println("class scissors button");
+            loadImageView.setImage(scissorsImage);
+            ScissorsButton pickedScissors = new ScissorsButton();
+            userInput = pickedScissors.returnValue();
         });
 
 
-        //gridPane
+        //gridPane initialization
         GridPane playerInteractionGridPane = new GridPane();
         playerInteractionGridPane.setAlignment(Pos.CENTER);
 
         GridPane gameStageGridPane = new GridPane();
         gameStageGridPane.setAlignment(Pos.CENTER);
 
+        GridPane buttonGridPane = new GridPane();
+        buttonGridPane.setAlignment(Pos.CENTER);
+
         GridPane gameHeaderGridPane = new GridPane();
         gameHeaderGridPane.setAlignment(Pos.CENTER);
 
-        //button alignment
+        //additional element alignment
         GridPane.setHalignment(rockButton, HPos.CENTER);
         GridPane.setHalignment(paperButton, HPos.CENTER);
         GridPane.setHalignment(scissorsButton, HPos.CENTER);
+
+        GridPane.setHalignment(player1Header, HPos.CENTER);
+        GridPane.setHalignment(player2Header, HPos.CENTER);
 
         //sizing
         playerInteractionGridPane.setHgap(100);
         playerInteractionGridPane.setVgap(30);
 
         gameStageGridPane.setHgap(120);
-        gameStageGridPane.setVgap(70);
 
         //placement
 
         gameHeaderGridPane.add(gameHeader, 0, 0);
 
+        gameStageGridPane.add(player1Header, 0, 0);
+        gameStageGridPane.add(player2Header, 1, 0);
         gameStageGridPane.add(loadImageView, 0, 1);
         gameStageGridPane.add(loadImageView2, 1, 1);
+
+        buttonGridPane.add(startButton, 0, 0);
 
         playerInteractionGridPane.add(rockImageView, 0, 2);
         playerInteractionGridPane.add(paperImageView, 1, 2);
@@ -163,7 +184,7 @@ public class HelloApplication extends Application {
         playerInteractionGridPane.add(scissorsButton, 2, 3);
 
         //hBox
-        VBox gameStage = new VBox(gameHeaderGridPane, gameStageGridPane, playerInteractionGridPane);
+        VBox gameStage = new VBox(gameHeaderGridPane, gameStageGridPane,buttonGridPane, playerInteractionGridPane);
 
         //getting gameBoard content
         gameBoard.getChildren().addAll(

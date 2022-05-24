@@ -1,8 +1,9 @@
 package com.example.rockpaperscissors;
 
-public class RockButton implements ButtonInterface {
+public class ScissorsButton implements ButtonInterface{
+
     @Override
     public char returnValue() {
-        return 'R';
+        return 'S';
     }
 }
