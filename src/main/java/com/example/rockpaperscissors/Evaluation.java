@@ -6,11 +6,12 @@ public class Evaluation {
     private String gameVerdict;
     private String player2Choice = player2.computersPick();
 
+    //constructor
     public Evaluation(String uI){
         this.player1 = uI;
     }
 
-    //game verdict
+    //game verdict (comparing plays and giving back results)
     public String playGame() {
 
         if (getPlayer1().equals(getPlayer2Choice())) {
@@ -38,19 +39,19 @@ public class Evaluation {
         return gameVerdict;
     }
 
-    //game counter
+    //game counter class
     public int counter(){
         int counter = 0;
         counter++;
         return counter;
     }
 
-    //getting the computer's generated move
+    //getting the computer's generated move class
     public String getPlayer2Choice(){
         return player2Choice;
     }
 
-    //getting the player 1' choice
+    //getting the player 1' choice class
     public String getPlayer1() {
         return player1;
     }
