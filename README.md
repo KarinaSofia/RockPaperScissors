@@ -9,7 +9,9 @@ the appropriate buttons to start the match and quit the program.
 ==Technologies used==
 
 Program used: IntelliJ IDEA
+
 SDK: 11 Oracle OpenJDK version 11.0.12
+
 Language: Java
 
 ==Possible improvments==
