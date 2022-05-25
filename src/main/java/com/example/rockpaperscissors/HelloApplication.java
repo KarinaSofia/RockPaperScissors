@@ -21,16 +21,13 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class HelloApplication extends Application {
     private Label winLogTitle;
-    private Label winLogContent;
-    String userInput;
-    ArrayList<String> gameLog = new ArrayList<>();
-
-    ImageView loadImageView;
-    ImageView loadImageView2;
+    private String userInput;
+    private ImageView loadImageView;
+    private ImageView loadImageView2;
+    private int counter = 0;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -63,8 +60,8 @@ public class HelloApplication extends Application {
         winLogTitle = new Label("Win Log");
         winLogTitle.setFont(Font.font("Lucida Sans Unicode", FontWeight.BOLD, FontPosture.REGULAR, 15));
         winLogTitle.setMinWidth(200);
-        winLogContent = new Label("test");
-        VBox vBox = new VBox(winLogTitle, winLogContent);
+
+        VBox vBox = new VBox(winLogTitle);
 
         //getting winLog content
         winLog.getChildren().addAll(
@@ -78,6 +75,7 @@ public class HelloApplication extends Application {
 
         Label player1Header = new Label("Player 1 (you)");
         player1Header.setFont(Font.font("Lucida Sans Unicode", FontWeight.BOLD, FontPosture.REGULAR, 15));
+
         Label player2Header = new Label("Challenger");
         player2Header.setFont(Font.font("Lucida Sans Unicode", FontWeight.BOLD, FontPosture.REGULAR, 15));
 
@@ -96,6 +94,7 @@ public class HelloApplication extends Application {
         //Start button
         Button startButton = new Button("Start");
         startButton.setStyle("-fx-font-size: 15; -fx-background-color: #ffffbf; ");
+
         //start button action
         startButton.setOnAction((ActionEvent event) -> {
                 if(userInput != null){
@@ -110,10 +109,18 @@ public class HelloApplication extends Application {
                     else if(evaluate.getPlayer2Choice().equals("S")){
                         loadImageView2.setImage(scissorsImage);
                     }
+                    counter++;
+                    vBox.getChildren().add(new Label( "Game " + counter + ": " + evaluate.playGame()));
 
-                    System.out.println(evaluate.playGame());
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Game Results");
+                    alert.setHeaderText("Looks like...");
+                    alert.setContentText(evaluate.playGame());
+                    alert.showAndWait();
+
                 }
                 else{
+                    //message for if the user presses start without picking a move
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Error");
                     alert.setHeaderText("Watch out!");
@@ -194,7 +201,6 @@ public class HelloApplication extends Application {
         gameStageGridPane.setHgap(120);
 
         //placement
-
         gameHeaderGridPane.add(gameHeader, 0, 0);
 
         gameStageGridPane.add(player1Header, 0, 0);
@@ -216,9 +222,7 @@ public class HelloApplication extends Application {
         VBox gameStage = new VBox(gameHeaderGridPane, gameStageGridPane,buttonGridPane, playerInteractionGridPane);
 
         //getting gameBoard content
-        gameBoard.getChildren().addAll(
-                gameStage
-        );
+        gameBoard.getChildren().addAll(gameStage);
 
         //setting the stage
         stage.setTitle("Rock Paper Scissors!");

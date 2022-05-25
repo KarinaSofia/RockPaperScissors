@@ -4,8 +4,7 @@ public class Evaluation {
     private String player1;
     private computerChoice player2 = new computerChoice();
     private String gameVerdict;
-
-    String player2Choice = player2.computersPick();
+    private String player2Choice = player2.computersPick();
 
     public Evaluation(String uI){
         this.player1 = uI;
@@ -18,25 +17,32 @@ public class Evaluation {
             gameVerdict = "Draw";
         }
         else if(getPlayer1().equals("R") && getPlayer2Choice().equals("P")){
-            gameVerdict = "Computer Wins";
+            gameVerdict = "Challenger Wins";
         }
         else if(getPlayer1().equals("P") && getPlayer2Choice().equals("R")){
-            gameVerdict = "You Win";
+            gameVerdict = "Player 1 Wins";
         }
         else if(getPlayer1().equals("S") && getPlayer2Choice().equals("P")){
-            gameVerdict = "You Win";
+            gameVerdict = "Player 1 Wins";
         }
         else if(getPlayer1().equals("P") && getPlayer2Choice().equals("S")){
-            gameVerdict = "Computer Wins";
+            gameVerdict = "Challenger Wins";
         }
         else if(getPlayer1().equals("S") && getPlayer2Choice().equals("R")){
-            gameVerdict = "Computer Wins";
+            gameVerdict = "Challenger Wins";
         }
         else if(getPlayer1().equals("R") && getPlayer2Choice().equals("S")){
-            gameVerdict = "You Win";
+            gameVerdict = "Player 1 Wins";
         }
 
         return gameVerdict;
+    }
+
+    //game counter
+    public int counter(){
+        int counter = 0;
+        counter++;
+        return counter;
     }
 
     //getting the computer's generated move
@@ -45,7 +51,6 @@ public class Evaluation {
     }
 
     //getting the player 1' choice
-
     public String getPlayer1() {
         return player1;
     }
