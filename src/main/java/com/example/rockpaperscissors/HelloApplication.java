@@ -21,11 +21,13 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class HelloApplication extends Application {
     private Label winLogTitle;
     private Label winLogContent;
     String userInput;
+    ArrayList<String> gameLog = new ArrayList<>();
 
     ImageView loadImageView;
     ImageView loadImageView2;
@@ -38,8 +40,24 @@ public class HelloApplication extends Application {
         Group gameBoard = new Group();
 
         HBox screen = new HBox(winLog, gameBoard);
-
         root.getChildren().addAll(screen);
+
+
+        //image imports
+        FileInputStream load = new FileInputStream("src/main/java/com/example/images/player_load.png");
+        Image loadImage = new Image(load);
+
+        FileInputStream load2 = new FileInputStream("src/main/java/com/example/images/player_load.png");
+        Image loadImage2 = new Image(load2);
+
+        FileInputStream rock = new FileInputStream("src/main/java/com/example/images/rock_press.png");
+        Image rockImage = new Image(rock);
+
+        FileInputStream paper = new FileInputStream("src/main/java/com/example/images/paper_press.png");
+        Image paperImage = new Image(paper);
+
+        FileInputStream scissors = new FileInputStream("src/main/java/com/example/images/scissors_press.png");
+        Image scissorsImage = new Image(scissors);
 
         //winLog
         winLogTitle = new Label("Win Log");
@@ -64,16 +82,12 @@ public class HelloApplication extends Application {
         player2Header.setFont(Font.font("Lucida Sans Unicode", FontWeight.BOLD, FontPosture.REGULAR, 15));
 
         //player one choice visual
-        FileInputStream load = new FileInputStream("src/main/java/com/example/images/player_load.png");
-        Image loadImage = new Image(load);
         loadImageView = new ImageView();
         loadImageView.setImage(loadImage);
         loadImageView.setFitHeight(150);
         loadImageView.setFitWidth(150);
 
         //computer choice visual
-        FileInputStream load2 = new FileInputStream("src/main/java/com/example/images/player_load.png");
-        Image loadImage2 = new Image(load2);
         loadImageView2 = new ImageView(loadImage2);
         loadImageView2.setImage(loadImage2);
         loadImageView2.setFitHeight(150);
@@ -82,10 +96,21 @@ public class HelloApplication extends Application {
         //Start button
         Button startButton = new Button("Start");
         startButton.setStyle("-fx-font-size: 15; -fx-background-color: #ffffbf; ");
-        //button action
+        //start button action
         startButton.setOnAction((ActionEvent event) -> {
                 if(userInput != null){
                     Evaluation evaluate = new Evaluation(userInput);
+                    //setting the computer visual
+                    if(evaluate.getPlayer2Choice().equals("R")){
+                        loadImageView2.setImage(rockImage);
+                    }
+                    else if(evaluate.getPlayer2Choice().equals("P")){
+                        loadImageView2.setImage(paperImage);
+                    }
+                    else if(evaluate.getPlayer2Choice().equals("S")){
+                        loadImageView2.setImage(scissorsImage);
+                    }
+
                     System.out.println(evaluate.playGame());
                 }
                 else{
@@ -99,8 +124,6 @@ public class HelloApplication extends Application {
 
         //player1 choices
         //rock
-        FileInputStream rock = new FileInputStream("src/main/java/com/example/images/rock_press.png");
-        Image rockImage = new Image(rock);
         ImageView rockImageView = new ImageView(rockImage);
         rockImageView.setFitHeight(150);
         rockImageView.setFitWidth(150);
@@ -115,8 +138,6 @@ public class HelloApplication extends Application {
         });
 
         //paper
-        FileInputStream paper = new FileInputStream("src/main/java/com/example/images/paper_press.png");
-        Image paperImage = new Image(paper);
         ImageView paperImageView = new ImageView(paperImage);
         paperImageView.setFitHeight(150);
         paperImageView.setFitWidth(150);
@@ -131,8 +152,6 @@ public class HelloApplication extends Application {
         });
 
         //scissors
-        FileInputStream scissors = new FileInputStream("src/main/java/com/example/images/scissors_press.png");
-        Image scissorsImage = new Image(scissors);
         ImageView scissorsImageView = new ImageView(scissorsImage);
         scissorsImageView.setFitHeight(150);
         scissorsImageView.setFitWidth(150);

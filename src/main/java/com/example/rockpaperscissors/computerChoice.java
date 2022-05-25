@@ -3,9 +3,12 @@ package com.example.rockpaperscissors;
 
 public class computerChoice {
 
+    //generate random number which translates into a move
     public String computersPick(){
+
         double number = Math.random();
         String computersChoice;
+
         if(number <0.333){
             computersChoice = "R";
         }
