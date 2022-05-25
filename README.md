@@ -17,6 +17,7 @@ game log. In the end, I just created a new label for every new game which in its
 things I could work on in the future. For instance, the fact that the user's choice and the computer's move both don't reset after the match is a bit unappealing.
 
 ==Visuals== 
+
 https://raw.githubusercontent.com/KarinaSofia/RockPaperScissors/master/BaseProgramDemo.png
  - *When the game is first loaded (no interactions)*
 
