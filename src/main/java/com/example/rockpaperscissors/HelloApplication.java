@@ -1,6 +1,7 @@
 package com.example.rockpaperscissors;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -93,7 +94,7 @@ public class HelloApplication extends Application {
 
         //Start button
         Button startButton = new Button("Start");
-        startButton.setStyle("-fx-font-size: 15; -fx-background-color: #ffffbf; ");
+        startButton.setStyle("-fx-font-size: 15; -fx-background-color: #acd1af; ");
 
         //start button action
         startButton.setOnAction((ActionEvent event) -> {
@@ -117,7 +118,6 @@ public class HelloApplication extends Application {
                     alert.setHeaderText("Looks like...");
                     alert.setContentText(evaluate.playGame());
                     alert.showAndWait();
-
                 }
                 else{
                     //message for if the user presses start without picking a move
@@ -128,6 +128,11 @@ public class HelloApplication extends Application {
                     alert.showAndWait();
                 }
         });
+
+        //Quit button
+        Button quitButton = new Button("Quit");
+        quitButton.setStyle("-fx-font-size: 15; -fx-background-color: #f47174; ");
+        quitButton.setOnAction((ActionEvent event) -> { Platform.exit(); });
 
         //player1 choices
         //rock
@@ -196,7 +201,10 @@ public class HelloApplication extends Application {
 
         //sizing
         playerInteractionGridPane.setHgap(100);
-        playerInteractionGridPane.setVgap(30);
+        playerInteractionGridPane.setVgap(20);
+
+        buttonGridPane.setHgap(50);
+        buttonGridPane.setVgap(20);
 
         gameStageGridPane.setHgap(120);
 
@@ -208,7 +216,8 @@ public class HelloApplication extends Application {
         gameStageGridPane.add(loadImageView, 0, 1);
         gameStageGridPane.add(loadImageView2, 1, 1);
 
-        buttonGridPane.add(startButton, 0, 0);
+        buttonGridPane.add(startButton, 0, 1);
+        buttonGridPane.add(quitButton, 1, 1);
 
         playerInteractionGridPane.add(rockImageView, 0, 2);
         playerInteractionGridPane.add(paperImageView, 1, 2);
