@@ -39,13 +39,6 @@ public class Evaluation {
         return gameVerdict;
     }
 
-    //game counter class
-    public int counter(){
-        int counter = 0;
-        counter++;
-        return counter;
-    }
-
     //getting the computer's generated move class
     public String getPlayer2Choice(){
         return player2Choice;

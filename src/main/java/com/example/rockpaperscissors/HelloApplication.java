@@ -100,6 +100,7 @@ public class HelloApplication extends Application {
                     counter++;
                     //adding to gameLog
                     vBox.getChildren().add(new Label( "Game " + counter + ": " + evaluate.playGame()));
+
                     //message to clearly view the results of the game
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Game Results");
